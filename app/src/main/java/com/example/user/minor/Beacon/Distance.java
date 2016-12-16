@@ -1,4 +1,4 @@
-package com.example.user.minor;
+package com.example.user.minor.Beacon;
 
 import java.util.LinkedList;
 import java.util.Queue;

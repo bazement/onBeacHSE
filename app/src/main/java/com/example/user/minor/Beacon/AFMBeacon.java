@@ -1,7 +1,7 @@
-package com.example.user.minor;
+package com.example.user.minor.Beacon;
 
 
-public class AFMBeacon {
+class AFMBeacon {
     private String name;
     private String address;
     private int major;

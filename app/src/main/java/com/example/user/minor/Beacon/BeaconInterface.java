@@ -1,4 +1,4 @@
-package com.example.user.minor;
+package com.example.user.minor.Beacon;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
