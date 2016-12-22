@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 
@@ -13,6 +14,7 @@ public class BeaconInterface {
     ArrayList<AFMBeacon> mDevices;
     ArrayList<String> mDeviceAddress;                   //It allows faster access to already received beacons
     BeaconListener beaconListener;
+    ArrayAdapter<AFMBeacon> adapter;
 
     private static BeaconInterface ourInstance = new BeaconInterface();
 
