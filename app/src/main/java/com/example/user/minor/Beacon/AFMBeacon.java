@@ -7,7 +7,19 @@ public class AFMBeacon {
     private int major;
     private int minor;
     private double receivedDistance;
+
+    private String information;
+
     Distance distance = new Distance();
+
+
+    public String getInformation() {
+        return information;
+    }
+
+    public void setInformation(String information) {
+        this.information = information;
+    }
 
     public double getDistance() {
         return distance.getAverageDistance();

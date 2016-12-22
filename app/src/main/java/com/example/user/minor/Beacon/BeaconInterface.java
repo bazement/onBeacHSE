@@ -3,18 +3,22 @@ package com.example.user.minor.Beacon;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
+import com.example.user.minor.Connection.RequestInfo;
+import com.example.user.minor.Connection.RestClientGet;
+
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class BeaconInterface {
     final static int REQUEST_ENABLE_BT=1;
     ArrayList<AFMBeacon> mDevices;
     ArrayList<String> mDeviceAddress;                   //It allows faster access to already received beacons
     BeaconListener beaconListener;
-    ArrayAdapter<AFMBeacon> adapter;
 
     private static BeaconInterface ourInstance = new BeaconInterface();
 
@@ -47,16 +51,23 @@ public class BeaconInterface {
             for (AFMBeacon iterator : mDevices) {                                                       //if yes than refresh his rssi
                 if (iterator.getAddress().equals(afmBeacon.getAddress())) {
                     iterator.addDistance(afmBeacon.getReceivedDistance());
-                    beaconListener.onDataReceived(iterator, false);
+                    beaconListener.onDataReceived(mDevices);
                     break;
                 }
             }
         } else {                                                                                    //if no than add it to device list
+            RestClientGet restClientGet = new RestClientGet();
+            restClientGet.execute(new RequestInfo(afmBeacon.getMajor(), afmBeacon.getMinor()));
+            try {
+                afmBeacon.setInformation(restClientGet.get().getInfo());
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
             mDevices.add(afmBeacon);
             mDeviceAddress.add(afmBeacon.getAddress());
-            beaconListener.onDataReceived(afmBeacon, true);
+            beaconListener.onDataReceived(mDevices);
         }
-        Log.d("DEVICE", mDevices.get(0).toString());
+
     }
 
     private BluetoothAdapter.LeScanCallback scanCallback = new BluetoothAdapter.LeScanCallback() {

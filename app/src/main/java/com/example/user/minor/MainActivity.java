@@ -12,42 +12,54 @@ import com.example.user.minor.Beacon.BeaconListener;
 import com.example.user.minor.Connection.RequestInfo;
 import com.example.user.minor.Connection.RestClientGet;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
-    TextView textView;
-    TextView textView2;
-//    ListView listView;
+    ListView listView;
+    ArrayAdapter<String> adapter;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        listView = (ListView) findViewById(R.id.listView);
-        textView = (TextView) findViewById(R.id.textView);
-        textView2 = (TextView) findViewById(R.id.textView2);
-//
-//        adapter = new ArrayAdapter<AFMBeacon>(this, android.R.layout.simple_list_item_1, mDevices);
-//        listView.setAdapter(adapter);
+        listView = (ListView) findViewById(R.id.listView);
+
 
         BeaconInterface beaconInterface = BeaconInterface.getInstance();
         beaconInterface.scanStart(this, new BeaconListener() {
             @Override
-            public void onDataReceived(AFMBeacon beacon, boolean fresh) {
-                if (fresh) {
-                    RestClientGet restClientGet = new RestClientGet();
-                    restClientGet.execute(new RequestInfo(beacon.getMajor(), beacon.getMinor()));
-                    try {
-                        textView.setText(restClientGet.get().getInfo());
+            public void onDataReceived(ArrayList<AFMBeacon> beacons) {
+                List<String> beaconsInfo = new ArrayList<>();
+                for (AFMBeacon beacon : beacons)
+                    beaconsInfo.add(beacon.getInformation());
+//                beaconsInfo.add("Avokado");
+//                beaconsInfo.add("Banana");
+//                beaconsInfo.add("Cocoa");beaconsInfo.add("Avokado");
+//                beaconsInfo.add("Banana");
+//                beaconsInfo.add("Cocoa");beaconsInfo.add("Avokado");
+//                beaconsInfo.add("Banana");
+//                beaconsInfo.add("Cocoa");beaconsInfo.add("Avokado");
+//                beaconsInfo.add("Banana");
+//                beaconsInfo.add("Cocoa");beaconsInfo.add("Avokado");
+//                beaconsInfo.add("Banana");
+//                beaconsInfo.add("Cocoa");beaconsInfo.add("Banana");
+//                beaconsInfo.add("Cocoa");beaconsInfo.add("Avokado");
+//                beaconsInfo.add("Banana");
+//                beaconsInfo.add("Cocoa");beaconsInfo.add("Avokado");
+//                beaconsInfo.add("Banana");
+//                beaconsInfo.add("Cocoa");beaconsInfo.add("Banana");
+//                beaconsInfo.add("Cocoa");beaconsInfo.add("Avokado");
+//                beaconsInfo.add("Banana");
+//                beaconsInfo.add("Cocoa");beaconsInfo.add("Avokado");
+//                beaconsInfo.add("Banana");
+//                beaconsInfo.add("Cocoa");
 
-                    } catch (InterruptedException | ExecutionException e) {
-                        e.printStackTrace();
-                    }
-                    textView2.setText(String.valueOf(beacon.getDistance()));
-                } else {
-                    textView2.setText(String.valueOf(beacon.getDistance()));
-                }
+                adapter = new ArrayAdapter<>(getApplicationContext(), R.layout.beacon_layout, beaconsInfo);
+                listView.setAdapter(adapter);
             }
         });
     }
