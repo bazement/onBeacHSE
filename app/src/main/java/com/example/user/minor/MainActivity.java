@@ -1,5 +1,6 @@
 package com.example.user.minor;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
                 List<String> beaconsInfo = new ArrayList<>();
                 for (AFMBeacon beacon : beacons)
                     beaconsInfo.add(beacon.getInformation());
-//                beaconsInfo.add("Avokado");
+//                beaconsInfo.add("Avocado");
 //                beaconsInfo.add("Banana");
 //                beaconsInfo.add("Cocoa");beaconsInfo.add("Avokado");
 //                beaconsInfo.add("Banana");

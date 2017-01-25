@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">Minor</string>
     <string name="action_settings">Settings</string>
+
+    <string name="ip_bazement_wifi">172.20.10.5</string>
+    <string name="ip_bazement_home">192.168.0.58</string>
+    <string name="ip_aws_public">35.164.191.49</string>
+    <string name="ip_aws_private">172.31.45.220</string>
+    <string name="port">8000</string>
+
+
+
+
 </resources>
